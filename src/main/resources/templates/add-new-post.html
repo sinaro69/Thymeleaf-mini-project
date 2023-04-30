@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http//www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/masterlayout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Add-new-post</title>
+</head>
+<body>
+<div layout:fragment="content-body">
+    <div class="container">
+
+        <div class="row d-flex flex-row justify-content-center align-items-center" style="padding-top: 15vh">
+            <div>
+                <h1>Add new post</h1>
+                <form class="row" th:object="${article}" th:action="@{handleAddArticle}" method="POST" enctype="multipart/form-data">
+                    <div class="col">
+                        <p  class="mt-5">Select Author's name for your post!</p>
+                        <select th:field="*{authorID}" class="form-select" aria-label="Default select example">
+                            <option th:each="author : ${authors}" th:value="${author.id}" th:text="${author.name}">One</option>
+                        </select>
+                        <div class="mb-3 mt-4">
+                            <label for="exampleInputEmail1" class="form-label">Description</label>
+                            <textarea th:field="*{description}" type="text" class="form-control" id="exampleInputEmail1"></textarea>
+                            <div id="emailHelp" class="form-text text-danger" th:errors="*{description}">Write your description here</div>
+                        </div>
+                        <label>Choose Category that feed your content</label>
+                        <select th:field="*{categoryID}" class="form-select" multiple aria-label="Default select example">
+                            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.categoriesList}">One</option>
+                        </select>
+                        <div class="d-flex justify-content-end align-items-center">
+                            <button type="submit" class="btn btn-primary bg-success mt-4 me-4 border-0">Add new post</button>
+                            <button th:href="@{/index}" class="btn btn-primary bg-danger mt-4 border-0">Cancel add</button>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <img id="preview" src="https://t3.ftcdn.net/jpg/02/48/42/64/360_F_248426448_NVKLywWqArG2ADUxDq6QprtIzsF82dMF.jpg"
+                             alt="PreviewImage" width="100%">
+                        <!--                    accept="image/png, image/gif, image/jpeg"-->
+                        <input type="file" name="file"  th:field="*{file}" onchange="previewFile(this)" class="form-control">
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<th:block layout:fragment="script">
+    <script>
+        function previewFile(event) {
+            var preview = document.getElementById('preview');
+            preview.src = URL.createObjectURL(event.files[0]);
+        }
+    </script>
+</th:block>
+
+</body>
+</html>

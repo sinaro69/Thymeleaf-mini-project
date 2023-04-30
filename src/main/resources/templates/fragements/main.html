@@ -1,0 +1,52 @@
+<div th:fragment="main" class="container" style="padding-top: 15vh">
+    <div class="d-flex flex-sm-column flex-lg-row ">
+        <div class="left w-25">
+            <h3>New social from cambodia</h3>
+            <p>Free posting and sharing article with your contents</p>
+            <hr>
+            <h4>Popular Category</h4>
+            <ul class="list-group list-unstyled">
+                <li th:each="category : ${categories}">
+                    <a class="list-group-item rounded-5 mt-2" href="#" th:text="${category.typeOfCategory}"></a>
+                </li>
+            </ul>
+            <a class="btn btn-primary bg-success mt-3 b-0" th:href="@{/new-article-form}">Add new post</a>
+        </div>
+        <div class="right w-75">
+            <div class="container w-50">
+                <div class="row">
+                    <div class="card mt-5 col-12 p-0 rounded-5 shadow-lg" th:each="articles:${article}">
+                        <img th:src="${articles.post_img}"
+                             class="card-img-top" alt="..."/>
+                        <div class="card-body">
+                            <div class="d-flex d-sm-block d-lg-flex justify-content-start align-items-center" >
+                                <img th:src="${articles.author.profileURLs}" alt=""
+                                     width="100px" height="100px" class="rounded-circle"/>
+                                <div class="mx-2">
+                                    <h4 class="card-title" th:text="${articles.author.name}"></h4>
+                                    <div class="d-flex text-danger">
+                                        @
+                                        <span class="text-danger" th:text="${articles.author.name}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-4 d-flex">
+                                <div th:each="category : ${articles.category}">
+                                    <a href="#" class="btn bg-danger-subtle me-2" th:text="${category.typeOfCategory}"></a>
+                                </div>
+                            </div>
+                            <p class="card-text mt-2" th:text="${articles.description}"></p>
+                            <div class="d-flex justify-content-between align-item-center">
+                                <a th:href="@{/author-profilev-view/{viewID}/{UserPost}(viewID = ${articles.id}, UserPost=${articles.author.name})}" class="btn btn-primary m-2">view profile</a>
+                                <a th:href="@{/delete/{id}(id = ${articles.id})}" class="btn btn-warning m-2">Delete profile</a>
+                                <a href="#" class="btn btn-primary m-2">Update profile</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

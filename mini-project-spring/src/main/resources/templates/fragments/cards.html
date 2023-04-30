@@ -1,0 +1,26 @@
+<div  th:fragment="card-Fragment" class="card col-lg-4 col-sm-12 col-md-6 p-0 rounded-5 shadow-lg" th:each="allArticles:${allArticle}">
+        <img th:src="${allArticles.post_img}"
+             class="card-img-top" alt="..."/>
+        <div class="card-body">
+            <div class="d-flex d-sm-block d-lg-flex justify-content-start align-items-center" >
+                <img th:src="${allArticles.author.profileURLs}" alt=""
+                     width="100px" height="100px" class="rounded-circle"/>
+                <div class="mx-2">
+                    <h4 class="card-title" th:text="${allArticles.author.name}"></h4>
+                    <div class="d-flex text-danger">
+                        @
+                        <span class="text-danger" th:text="${allArticles.author.name}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 d-flex" th:each="category : ${allArticles.category}" >
+                <a href="#" class="btn bg-danger-subtle" th:text="${category.categoriesList}"></a>
+            </div>
+            <p class="card-text mt-2" th:text="${allArticles.author.bio}"></p>
+            <div class="d-flex justify-content-between align-item-center">
+                <a th:href="@{/author-profilev-view/{viewID}/{UserPost}(viewID = ${allArticles.id}, UserPost=${allArticles.author.name})}" class="btn btn-primary m-2">view profile</a>
+                <a th:href="@{/delete/{id}(id = ${allArticles.id})}" class="btn btn-warning m-2">Delete profile</a>
+                <a th:href="@{/updated data/{id}(id = ${allArticles.id})" class="btn btn-primary m-2">Update profile</a>
+            </div>
+    </div>
+</div>
